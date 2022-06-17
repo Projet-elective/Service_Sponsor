@@ -3,10 +3,11 @@
 /**
  * Module dependencies.
  */
-
-const app = require('../app')
+import mongoose from 'mongoose'
+import app from '../app'
+import http from 'http'
+mongoose.connect('mongodb://localhost:27017/service_sponsor')
 const debug = require('debug')('service-sponsor:server')
-const http = require('http')
 
 /**
  * Get port from environment and store in Express.
@@ -67,9 +68,11 @@ function onError (error) {
     case 'EACCES':
       console.error(bind + ' requires elevated privileges')
       process.exit(1)
+    // eslint-disable-next-line no-fallthrough
     case 'EADDRINUSE':
       console.error(bind + ' is already in use')
       process.exit(1)
+    // eslint-disable-next-line no-fallthrough
     default:
       throw error
   }
