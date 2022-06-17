@@ -3,7 +3,8 @@
 /**
  * Module dependencies.
  */
-
+const mongoose = require('mongoose')
+mongoose.connect('mongodb://localhost:27017/service_sponsor')
 const app = require('../app')
 const debug = require('debug')('service-sponsor:server')
 const http = require('http')
