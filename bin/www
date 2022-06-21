@@ -4,7 +4,26 @@
  * Module dependencies.
  */
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost:27017/service_sponsor')
+console.log(mongoose.connection.readyState)
+mongoose.connection.on('connecting', () => {
+  console.log('connecting')
+  console.log(mongoose.connection.readyState)
+})
+mongoose.connection.on('connected', () => {
+  console.log('connected')
+  console.log(mongoose.connection.readyState)
+})
+mongoose.connection.on('disconnecting', () => {
+  console.log('disconnecting')
+  console.log(mongoose.connection.readyState)
+})
+mongoose.connection.on('disconnected', () => {
+  console.log('disconnected')
+  console.log(mongoose.connection.readyState)
+})
+mongoose.connect('mongodb://localhost:27017/service_sponsor', {
+  useNewUrlParser: true // Boilerplate for Mongoose 5.x
+})
 const app = require('../app')
 const debug = require('debug')('service-sponsor:server')
 const http = require('http')
