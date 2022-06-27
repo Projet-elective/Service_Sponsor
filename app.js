@@ -15,6 +15,6 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/api/sponsor-code', SponsorCodeRouter)
-app.use('/api/sponsorship', SponsorshipRouter)
+app.use('/api/sponsor-ship', SponsorshipRouter)
 
 module.exports = app

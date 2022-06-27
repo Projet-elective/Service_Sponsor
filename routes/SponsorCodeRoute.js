@@ -3,34 +3,36 @@ const SponsorCode = require('../models/SponsorCode')
 const router = express.Router()
 
 /* GET users */
-router.get('/', async (req, res) => {
+router.get('/yy/', async (req, res) => {
   const results = await SponsorCode.find({}).exec()
   res.send(results)
 })
 
 /* GET user by ID */
-router.get('/:id', async (req, res) => {
-  const resultId = await SponsorCode.findOne({ id: String(req.params.id) }).exec()
-  res.send(resultId)
+router.get('/get/:id', async (req, res) => {
+  try {
+    const resultId = await SponsorCode.findById(req.params.id)
+    res.send(resultId)
+  } catch (err) {
+    res.send(err)
+  }
 })
 
-router.post('/', async (req, res) => {
+router.post('/post/', async (req, res) => {
   try {
     const sponsorCode = new SponsorCode()
-    sponsorCode.id = String(req.body.id)
     sponsorCode.user = req.body.user
-    sponsorCode.code = String(req.body.code)
+    sponsorCode.code = req.body.code
 
     await sponsorCode.save()
 
     res.status(201).send(sponsorCode)
   } catch (error) {
-    res.sendStatus(400)
+    res.send(error)
   }
 })
 
-router.post('/', async (req, res) => {
-  const sponsorCodeId = req.body.id
+router.post('/p/', async (req, res) => {
   const sponsorCodeUser = req.body.name
   const sponsorCodeCode = req.body.description
 

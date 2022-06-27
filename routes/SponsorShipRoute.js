@@ -9,34 +9,37 @@ router.get('/', async (req, res) => {
 })
 
 /* GET user by ID */
-router.get('/:id', async (req, res) => {
-  const resultId = await SponsorShip.findOne({ id: String(req.params.id) }).exec()
-  res.send(resultId)
-})
-
-router.post('/', async (req, res) => {
+router.get('/get/:id', async (req, res) => {
   try {
-    const sponsorCode = new SponsorShip()
-    sponsorCode.id = String(req.body.id)
-    sponsorCode.sponsor = req.body.sponsor
-    sponsorCode.sponsored = req.body.sponsored
-
-    await sponsorCode.save()
-
-    res.status(201).send(sponsorCode)
-  } catch (error) {
-    res.sendStatus(400)
+    const resultId = await SponsorShip.findById(req.params.id).populate('idCode')
+    res.send(resultId)
+  } catch (err) {
+    res.send(err)
   }
 })
 
-router.delete('/:id', (req, res) => {
-  const found = SponsorShip.find(SponsorShip => SponsorShip.id === String(req.params.id))
-  const foundIndex = SponsorShip.findIndex(SponsorShip => SponsorShip.id === String(req.params.id))
-  if (!found) {
-    return res.status(404).send()
+router.post('/post/', async (req, res) => {
+  try {
+    const SponsorS = new SponsorShip()
+    SponsorS.idCode = req.body.idCode
+    SponsorS.sponsor = req.body.sponsor
+    SponsorS.sponsored = req.body.sponsored
+
+    await SponsorS.save()
+
+    res.status(201).send(SponsorS)
+  } catch (error) {
+    res.send(error)
   }
-  SponsorShip.splice(foundIndex, 1)
-  res.status(204).send()
+})
+
+router.delete('/delete/:id', async (req, res) => {
+  try {
+    const resultId = await SponsorShip.findByIdAndDelete(req.params.id).populate('idCode')
+    res.send(resultId)
+  } catch (err) {
+    res.send(err)
+  }
 })
 
 router.patch('/:id', (req, res) => {
