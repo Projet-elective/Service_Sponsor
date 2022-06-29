@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const indexRouter = require('./routes/index');
 const SponsorCodeRouter = require('./routes/SponsorCode');
 const SponsorshipRouter = require('./routes/Sponsorship');
+const { auth } = require('./auth');
 
 var app = express();
 
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(auth)
 app.use('/', indexRouter);
 app.use('/api/sponsor-code', SponsorCodeRouter);
 app.use('/api/sponsorship', SponsorshipRouter);

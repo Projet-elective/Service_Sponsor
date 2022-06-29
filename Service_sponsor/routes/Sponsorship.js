@@ -2,11 +2,9 @@ const express = require('express')
 const SponsorshipController = require('../controllers/SponsorshipController')
 const router = express.Router()
 
-/* GET users */
-router.get('/', SponsorshipController.get);
+router.get('/', SponsorshipController.getAll);
 
-/* GET user by ID */
-router.get('/get/:id', SponsorshipController.getId);
+router.get('/get/:id', SponsorshipController.get);
 
 router.post('/add/', SponsorshipController.add);
 
