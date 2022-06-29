@@ -18,6 +18,7 @@ exports.add = function(req, res) {
   const sponsorCode = new SponsorCode()
   sponsorCode.user = req.body.user
   sponsorCode.code = req.body.code
+  sponsorCode.role = req.body.role
   
   sponsorCode.save(function(err) {
     if(err) res.send(err)
