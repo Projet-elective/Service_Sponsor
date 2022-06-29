@@ -20,7 +20,7 @@ exports.add = async (req, res) => {
     const sponsorship = new SponsorShip();
     sponsorship.idCode = req.body.idCode;
     const sponsorCodeRole = await SponsorCode.findById(req.body.idCode)
-    sponsorcode.sponsor = sponsorcode.role
+    sponsorship.sponsor = req.body.sponsor
     sponsorship.sponsored = req.body.sponsored;
     try{
         if(sponsorCodeRole.role == sponsorship.sponsored.role ){
