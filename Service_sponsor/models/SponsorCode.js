@@ -3,7 +3,8 @@ const {Schema} = require('mongoose');
 
 const SponsorCodeSchema = new mongoose.Schema({
   user: Number,
-  code: String
+  code: String,
+  role: String
 });
 
 const SponsorCode = mongoose.model('SponsorCode', SponsorCodeSchema);
