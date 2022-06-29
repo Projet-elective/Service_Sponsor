@@ -8,6 +8,10 @@ const mongoose = require('mongoose');
 const indexRouter = require('./routes/index');
 const SponsorCodeRouter = require('./routes/SponsorCode');
 const SponsorshipRouter = require('./routes/Sponsorship');
+const UserRoleRouter = require('./routes/UserRole')
+
+const db = require('./models')
+db.sequelize.sync()
 
 var app = express();
 
@@ -24,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api/sponsor-code', SponsorCodeRouter);
 app.use('/api/sponsorship', SponsorshipRouter);
+app.use('/api/userrole', UserRoleRouter);
 
 
 mongoose.connect('mongodb://localhost:27017/cesi-eat')
