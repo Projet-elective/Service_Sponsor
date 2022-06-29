@@ -21,10 +21,14 @@ exports.add = function (req, res) {
     sponsorship.idCode = req.body.idCode;
     sponsorship.sponsor = req.body.sponsor;
     sponsorship.sponsored = req.body.sponsored;
-
-    sponsorship.save()
-        .then(()=>res.status(201).json({ message: 'Objet enregistré !'}))
-        .catch(error => res.send(error));
+    
+    if(sponsorship.sponsor.role == sponsorship.sponsored.role ){
+        sponsorship.save()
+                .then(()=>res.status(201).json({ message: 'Objet enregistré !'}))
+                .catch(error => res.send(error));
+    }else{
+        res.send("not the same role")
+    }
 };
 
 exports.delete = function (req, res) {
