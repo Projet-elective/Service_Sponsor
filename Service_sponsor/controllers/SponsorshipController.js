@@ -45,16 +45,17 @@ exports.get = function(req, res) {
 // Add a sponsorship
 exports.add = async (req, res) => {
     const logged_user = req.auth;
+    const code = req.body.code
+    const SponsorCode = await SponsorCode.findOne({code: code})
     const sponsorship = new SponsorShip();
     sponsorship.idCode = req.body.idCode;
-    const sponsorCodeRole = await SponsorCode.findById(req.body.idCode)
     sponsorship.sponsor = req.body.sponsor
     sponsorship.sponsored = req.body.sponsored;
     if(logged_user.userId != req.body.sponsored.id) {
         res.send("Vous n'êtes pas autorisé à effectuer cette action");
     } else {
         try{
-            if(sponsorCodeRole.role == sponsorship.sponsored.role ){
+            if(sponsorCode.role == sponsorship.sponsored.role ){
             sponsorship.save()
                     .then(()=>res.status(201).json({ message: 'Objet enregistré !'}))
                     .catch(error => res.send(error));
