@@ -46,10 +46,10 @@ exports.get = function(req, res) {
 exports.add = async (req, res) => {
     const logged_user = req.auth;
     const code = req.body.code
-    const SponsorCode = await SponsorCode.findOne({code: code})
+    const sponsorCode = await SponsorCode.findOne({code: code})
     const sponsorship = new SponsorShip();
-    sponsorship.idCode = req.body.idCode;
-    sponsorship.sponsor = req.body.sponsor
+    sponsorship.idCode = sponsorCode._id;
+    sponsorship.sponsor = {id: sponsorCode.user, role: sponsorCode.user}
     sponsorship.sponsored = req.body.sponsored;
     if(logged_user.userId != req.body.sponsored.id) {
         res.send("Vous n'êtes pas autorisé à effectuer cette action");
