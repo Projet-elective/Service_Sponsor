@@ -68,7 +68,7 @@ exports.add = function(req, res) {
 // Delete a sponsor code
 exports.delete = async(req, res) => {
   const logged_user = req.auth;
-  const sponsorCode = await SponsorCode.findById(req.params.id)
+  const sponsorCode = await SponsorCode.findById(req.params.id);
 
   if(logged_user.userId != sponsorCode.user) {
     res.send("Vous n'êtes pas autorisé à effectuer cette action");
