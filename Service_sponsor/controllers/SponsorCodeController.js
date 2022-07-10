@@ -48,14 +48,11 @@ exports.add = function(req, res) {
   sponsorCode.code = req.body.code;
   sponsorCode.role = req.body.role;
   
-  if(logged_user.userId != req.body.user) {
-    res.send("Vous n'êtes pas autorisé à effectuer cette action");
-  } else {
     sponsorCode.save()
       .then(() => res.send('Le code de parrainage a bien été ajouté'))
       .catch(err => res.send(err));
   }
-};
+;
 
 /**
  * @api {delete} /delete/:id Delete the selected sponsor code

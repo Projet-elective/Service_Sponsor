@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const {Schema} = require('mongoose');
 
 const SponsorCodeSchema = new mongoose.Schema({
-  user: Number,
+  user: String,
   code: String,
   role: String
 });

@@ -6,7 +6,7 @@ router.get('/', SponsorshipController.getAll);
 
 router.get('/get/:id', SponsorshipController.get);
 
-router.post('/add/', SponsorshipController.add);
+router.post('/add', SponsorshipController.add);
 
 router.delete('/delete/:id', SponsorshipController.delete);
 

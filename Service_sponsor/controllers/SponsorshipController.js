@@ -51,11 +51,9 @@ exports.add = async (req, res) => {
     sponsorship.idCode = sponsorCode._id;
     sponsorship.sponsor = {id: sponsorCode.user, role: sponsorCode.user}
     sponsorship.sponsored = req.body.sponsored;
-    if(logged_user.userId != req.body.sponsored.id) {
-        res.send("Vous n'êtes pas autorisé à effectuer cette action");
-    } else {
+
         try{
-            if(sponsorCode.role == sponsorship.sponsored.role ){
+            if(sponsorCode.role != sponsorship.sponsored.role ){
             sponsorship.save()
                     .then(()=>res.status(201).json({ message: 'Objet enregistré !'}))
                     .catch(error => res.send(error));
@@ -68,7 +66,7 @@ exports.add = async (req, res) => {
         }
     }
     
-};
+;
 
 /**
  * @api {delete} /delete/:id Delete the selected sponsorship
