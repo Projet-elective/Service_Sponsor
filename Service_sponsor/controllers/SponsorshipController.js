@@ -47,13 +47,15 @@ exports.add = async (req, res) => {
     const logged_user = req.auth;
     const code = req.body.code
     const sponsorCode = await SponsorCode.findOne({code: code})
+    console.log(req.body)
+    console.log(sponsorCode)
     const sponsorship = new SponsorShip();
     sponsorship.idCode = sponsorCode._id;
-    sponsorship.sponsor = {id: sponsorCode.user, role: sponsorCode.user}
+    sponsorship.sponsor = {id: Number(sponsorCode.user), role: sponsorCode.role}
     sponsorship.sponsored = req.body.sponsored;
 
         try{
-            if(sponsorCode.role != sponsorship.sponsored.role ){
+            if(sponsorCode.role == sponsorship.sponsored.role ){
             sponsorship.save()
                     .then(()=>res.status(201).json({ message: 'Objet enregistré !'}))
                     .catch(error => res.send(error));
